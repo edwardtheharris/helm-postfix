@@ -14,7 +14,10 @@ import version_query
 def get_release():
     """Query the current release for the project."""
     repo_path = Path('.')
-    ret_value = version_query.git_query.query_git_repo(repo_path).to_str()
+    try:
+        ret_value = version_query.git_query.query_git_repo(repo_path).to_str()
+    except ValueError:
+        ret_value = '0.0.1'
     return ret_value
 
 author = 'Xander Harris'
@@ -23,7 +26,7 @@ autoyaml_doc_delimiter = "###"
 autoyaml_comment = "#"
 autoyaml_level = 10
 autoyaml_safe_loader = True
-copyright = '(c) 2024, Xander Harris. All rights reserved.'
+copyright = '(c) 2025, Xander Harris. All rights reserved.'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -74,7 +77,7 @@ myst_enable_extensions = [
     "tasklist",
 ]
 myst_title_to_header = True
-project = 'Template Helm Chart'
+project = 'Postfix Helm Chart'
 rst_epilog = """
 .. sectionauthor:: Xander Harris <xandertheharris@gmail.com>
 """
