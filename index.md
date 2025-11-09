@@ -5,10 +5,13 @@ authors:
    - name: Xander Harris
      email: xandertheharris@gmail.com
 date: 2024-08-04
-title: ArgoCD Helm Chart
+title: PostfixHelm Chart
 ---
 
 ## Repository Contents
+
+The documentation for Postfix itself may be found on the 
+[Postfix website](https://www.postfix.org/documentation.html).
 
 ````{sidebar}
 ```{contents}
