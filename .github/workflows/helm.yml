@@ -86,10 +86,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main
-      - run: |
-          for i in lvm cubefs; do
-            helm lint $i
-          done
+      - run: helm lint .
   ####
   ###
   # ```{rubric} Helm Test
@@ -101,7 +98,6 @@ jobs:
   # :language: yaml
   # :start-at: "  helmtest:\n"
   # ```
-
 #   helmtest:
 #     name: helmtest
 #     needs: helmsetup
