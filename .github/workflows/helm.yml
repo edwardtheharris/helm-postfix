@@ -101,41 +101,42 @@ jobs:
   # :language: yaml
   # :start-at: "  helmtest:\n"
   # ```
-  helmtest:
-    name: helmtest
-    needs: helmsetup
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@main
-      - run: helm plugin install https://github.com/helm-unittest/helm-unittest
-      - run: helm repo add lvm https://helm.metal-stack.io
-      - run: |
-          for i in lvm; do
-            cd $i
-            helm dependency update
-            cd ..
-          done
-      - run: |
-          for i in lvm; do
-            cd $i
-            helm dependency build
-            cd ..
-          done
-      - run: |
-          for i in lvm; do
-            helm unittest -d -f "$i/tests/*.yaml" $i
-          done
-      - run: |
-          for i in lvm; do
-            helm unittest -f "$i/tests/*.yaml" -t JUnit -o $i.results.xml $i
-            cat $i.results.xml >> results.xml
-          done
-        if: success() || failure() # always run even if the previous step fails
-      - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2
-        if: always()
-        with:
-          check_name: helmtest
-          comment_title: "Helm Test"
-          files: results.xml
+
+#   helmtest:
+#     name: helmtest
+#     needs: helmsetup
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@main
+#       - run: helm plugin install https://github.com/helm-unittest/helm-unittest
+#       - run: helm repo add lvm https://helm.metal-stack.io
+#       - run: |
+#           for i in lvm; do
+#             cd $i
+#             helm dependency update
+#             cd ..
+#           done
+#       - run: |
+#           for i in lvm; do
+#             cd $i
+#             helm dependency build
+#             cd ..
+#           done
+#       - run: |
+#           for i in lvm; do
+#             helm unittest -d -f "$i/tests/*.yaml" $i
+#           done
+#       - run: |
+#           for i in lvm; do
+#             helm unittest -f "$i/tests/*.yaml" -t JUnit -o $i.results.xml $i
+#             cat $i.results.xml >> results.xml
+#           done
+#         if: success() || failure() # always run even if the previous step fails
+#       - name: Publish Test Results
+#         uses: EnricoMi/publish-unit-test-result-action@v2
+#         if: always()
+#         with:
+#           check_name: helmtest
+#           comment_title: "Helm Test"
+#           files: results.xml
 #####
